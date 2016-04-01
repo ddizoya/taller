@@ -15,7 +15,7 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <object class="GtkToolButton" id="actu">
+              <object class="GtkToolButton" id="actualizar">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">actualizar</property>
@@ -29,7 +29,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkToolButton" id="inserta">
+              <object class="GtkToolButton" id="insertar">
                 <property name="name">Añadir</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -44,7 +44,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkToolButton" id="elimina">
+              <object class="GtkToolButton" id="eliminar">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">toolbutton4</property>
@@ -58,7 +58,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkToolButton" id="modifica">
+              <object class="GtkToolButton" id="modificar">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">modificar</property>
@@ -72,7 +72,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkToolButton" id="ayud">
+              <object class="GtkToolButton" id="ayuda">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">toolbutton5</property>

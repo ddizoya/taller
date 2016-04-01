@@ -4,6 +4,13 @@ import Generarpdf as pdf
 
 class Taller:
 
+    """  
+    La clase Taller, contiene todos los metodos de consultas a la base de datos, 
+    el treeview, y todos los metodos necesarios para el funcionamiento del programa
+    
+    Este cursor, genera la tabla en la base de datos sqlite, 
+    al estar creada la dejo comentada como muestra
+    """
    # cursor.execute("CREATE TABLE taller (matricula VARCHAR(7) PRIMARY KEY NOT NULL,"
     #                        "vehiculo VARCHAR(20),"
      #                       "kilometros INT,"
@@ -14,18 +21,26 @@ class Taller:
           #                  "direccion VARCHAR(10))")
 
     def __init__(self):
+        """
+        Conexion con la base de datos.
+        Siempre se debe hacer un commit al terminar una consulta
+
+        Declaramos los nombres de las señales,
+        que reciben los botones de glade,
+        para llamar al metodo correspondiente.
         self.condicion= bool
-        #Conexion con la base de datos
+
+        Abrimos y conectamos a la interfaz de taller.glade
+
+        """
         self.bd = dbapi.connect("basedatos.dat")
         self.cursor = self.bd.cursor()
 
-        #Abrimos y conectamos a la interfaz de taller
         self.builder = Gtk.Builder()
         self.builder.add_from_file("Taller.glade")
         self.inicializar()
         self.ventana = self.builder.get_object("Taller")
 
-        #Declaramos los nombres de los metodos para que al pulsar el boton tenga funcion
         sinais = {"on_insertar_clicked": self.insertar,
                   "on_borrar_clicked": self.borrar,
                   "on_modificar_clicked": self.modificar,
@@ -38,7 +53,10 @@ class Taller:
 
 
     def inicializar(self):
-        #treeview o tabla, en el que se muestran los datos de la base de datos
+        """
+        treeview o tabla, en el que se
+        muestran los datos de la base de datos
+        """
         self.box = self.builder.get_object("box2")
         self.scroll = Gtk.ScrolledWindow()
         self.scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
@@ -52,9 +70,9 @@ class Taller:
 
         self.lista.clear()
         self.cursor.execute("select * from taller")
-        #print(self.cursor.fetchall())
-        for merla in self.cursor:
-            self.lista.append(merla)
+       
+        for clientes in self.cursor:
+            self.lista.append(clientes)
 
         self.vista.set_model(self.lista)
 
@@ -63,12 +81,21 @@ class Taller:
             columna = Gtk.TreeViewColumn(title, render, text=i)
             self.vista.append_column(columna)
 
-    #Metodo de ayuda al usuario explicando como usar los botones y el programa
+    
     def informacion(self, widget):
-        self.popup("merda pa ti mamon de merda")
+        """
+        Metodo Informacion:
+        Da una pequeña orientacion al usuario explicando
+        como usar los botones y el programa en si
+        """
+        self.popup("Boton +:\nAñade un nuevo cliente a la base de datos\nBoton -:\nQuita un cliente de la base de datos\n(solo clica en el treeview la fila seleccionada)\nBoton Lapiz:\nEste boton permite modificar un cliente de la base, solo escribe la matricula y los campos que quieras cambiar\nBoton ?:\nSi no lo necesitaras no estarias aqui :D\nBoton Imprimir:\nGenera un pdf con la lista de clientes.")
 
-    #Metodo borrar que borra seleccionando la fila en la tabla
+
     def borrar(self, widget):
+        """
+        Metodo borrar:
+        Que borra seleccionando la fila en en el treeview
+        """
         selection = self.vista.get_selection()
         model, selec = selection.get_selected()
         if selec != None:
@@ -78,8 +105,11 @@ class Taller:
             self.bd.commit()
             self.popup("Borrado")
 
-     #Metodo Modificar. Modifica a traves de la primary Key
+
     def modificar(self, modificar):
+        """
+        Metodo Modificar: Modifica a traves de la primary Key
+        """
         matricula = self.builder.get_object("matricula").get_text()
         vehiculo = self.builder.get_object("vehiculo").get_text()
         kilometros = self.builder.get_object("kilometros").get_text()
@@ -92,7 +122,7 @@ class Taller:
         if kilometros.isdigit and len(cifnif)==9 and telefono.isdigit and len(telefono)==9:
             self.condicion = True
         else:
-            self.popup("Datos invalidos. ")
+            self.popup("Datos invalidos.")
             self.condicion = False
 
         if(self.condicion):
@@ -111,8 +141,15 @@ class Taller:
             except dbapi.IntegrityError:
                 self.popup("La matricula ya existe")
 
-    # Metodo insertar
+
     def insertar(self, control):
+        """
+        Metodo insertar: 
+        Inserta a la base de datos 
+        todos los campos recogiendo 
+        el texto de los Gtxentrys del glade.
+        
+        """
         matricula = self.builder.get_object("matricula").get_text()
         vehiculo = self.builder.get_object("vehiculo").get_text()
         kilometros = self.builder.get_object("kilometros").get_text()
@@ -142,14 +179,21 @@ class Taller:
                                              ",'" + direccion +"')")
                 self.popup("Insertado")
                 self.actualizar()
-                # Siempre se debe hacer un commit al final de cada evento
+                
                 self.bd.commit()
             except dbapi.IntegrityError:
                 self.popup("La matricula ya existe")
 
 
-    #Este metodo simplemente actualiza la tabla
+
     def actualizar(self):
+        """
+        Metodo actualizar:
+        Este metodo simplemente actualiza
+        la tabla de la base de datos,
+        haciendo un select y
+        refrescando el treeview
+        """
         self.lista.clear()
         self.cursor.execute("select * from taller")
         #print(self.cursor.fetchall())
@@ -159,20 +203,35 @@ class Taller:
         self.vista.set_model(self.lista)
 
     def cerrar(self, widget):
+        """"
+        Metodo cerrar:
+        Destruye la ventana emergente que nos 
+        muestra el mensaje de informacion
+        """
         widget.destroy()
 
     def imprimir(self,widget):
-       obj = pdf.PDF()
-       obj.pdf()
+        """
+        Metodo Imprimir:
+        Este metodo simplemente llama a la clase Generarpdf.py 
+        para generar el pdf, con el contenido de la base de datos
+        """
+        obj = pdf.PDF()
+        obj.pdf()
 
-
-    #Este metodo abre una ventana emergente que muestra
-    # el texto correspondiente a cada metodo
     def popup(self, texto):
+        """
+        Este metodo abre
+        una ventana emergente
+        que muestra el texto
+        correspondiente que
+        le pasa cada metodo
+        """
         window = Gtk.Window(title="Aviso")
         label = Gtk.Label(texto)
         label.set_padding(30, 30)
         window.add(label)
         window.connect("delete-event", self.cerrar)
-        window.set_position(Gtk.PositionType.RIGHT)
+        window.set_position(Gtk.BaselinePosition.CENTER)
+        #window.set_position(Gtk.PositionType.TOP)
         window.show_all()

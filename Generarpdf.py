@@ -9,14 +9,29 @@ import datetime
 import sqlite3 as dbapi
 from gi.repository import Gtk
 class PDF():
+    """
+    Esta clase PDF contiene todo lo relacion con la generacion del pdf,
+    con el contenido de la base de datos,
+    podriamos cambiarlo facilmente
+    para utilizarlo como generador de facturas
+    """
     def __init__(self):
-        #Conexion con la base de datos
+        """
+        Conexion con la base de datos
+        """
         self.bd = dbapi.connect("basedatos.dat")
         self.cursor = self.bd.cursor()
-        self.foto = Image("./talleres-rodal.jpg")
+        #foto = Image("./talleres-rodal.jpg")
         self.elementos = []
 
     def pdf(self):
+        """
+        Metodo pdf:
+        Este metodo genera el pdf, y en el nombre
+        le pone la fecha en la que es generado
+        utilizamos canvas, y llamamos al metodo tabla
+        para agregar la tabla al pdf
+        """
         historialpdf ="Clientes"+ str(datetime.date.today()) +"_.pdf"
         c = canvas.Canvas(historialpdf, pagesize=A4)
         c.drawString(20,800,"Impresion lista clientes")
@@ -35,7 +50,11 @@ class PDF():
         #doc.build(elements)
 
     def tabla(self):
-
+        """
+        Metodo tabla:
+        Este metodo genera la tabla en el pdf
+        volcando el contenido de la base de datos
+        """
         clientes = list(self.cursor.execute("select * from taller"))
         titulos = [["MATRICULA", "VEHICULO","KILOMETROS", "FECHA ENTRADA", "CLIENTE", "CIF/NIF","TELEFONO", "DIRECCION"]]
 
@@ -52,9 +71,21 @@ class PDF():
 
         return tabla
     def cerrar(self, widget):
+        """"
+        Metodo cerrar:
+        Destruye la ventana emergente que nos
+        muestra el mensaje de informacion
+        """
         widget.destroy()
     #Metodo para que salga una ventana emergente segun el metodo en el que lo llame
     def popup(self, texto):
+        """
+        Este metodo abre
+        una ventana emergente
+        que muestra el texto
+        correspondiente que
+        le pasa cada metodo
+        """
         window = Gtk.Window(title="Warning")
         label = Gtk.Label(texto)
         label.set_padding(15,15)

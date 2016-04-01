@@ -1,9 +1,15 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+
 from gi.repository import Gtk
 from Taller import Taller
 
 
+
 class Login:
+    """
+    La clase Login, contiene la primera interfaz,
+    la cual te pide que te registres para poder acceder a la aplicacion
+    """
     def __init__(self):
 
             builder2 = Gtk.Builder()
@@ -13,15 +19,20 @@ class Login:
             self.contrasena = builder2.get_object("contrasena")
             self.ventanaEntrada = builder2.get_object("inicio")
 
-            sinais = {"on_Entrada_clicked": self.on_Entrada_clicked,
+            sinais = {"on_Entrada_clicked": self.inicio,
                       "delete-event": self.cerrar}
 
             builder2.connect_signals(sinais)
             self.ventanaEntrada.set_title("Log in.")
             self.ventanaEntrada.show_all()
 
-    # Metodo de entrada para poder acceder por usuario y contrasenha a la segunda ventana
-    def on_Entrada_clicked(self, widget):
+    def inicio(self, widget):
+        """
+        Metodo inicio:
+        Metodo que limita el acceso al programa
+        mediante usuario y contraseña,
+        la contraseña se ha ocultado
+        """
         nombre = self.nombre.get_text();
         contrasena = self.contrasena.get_text();
         if nombre == "taller" and contrasena == "root":
@@ -31,12 +42,22 @@ class Login:
         else:
             self.popup("Prueba otra vez")
 
-    #este metodo destruye las ventanas
     def cerrar(self, widget):
+        """"
+        Metodo cerrar:
+        Destruye la ventana emergente que nos
+        muestra el mensaje de informacion
+        """
         widget.destroy()
 
-    #Metodo para que salga una ventana emergente segun el metodo en el que lo llame
     def popup(self, texto):
+        """
+        Este metodo abre
+        una ventana emergente
+        que muestra el texto
+        correspondiente que
+        le pasa cada metodo
+        """
         window = Gtk.Window(title="Warning")
         label = Gtk.Label(texto)
         label.set_padding(15,15)
@@ -44,8 +65,8 @@ class Login:
         window.connect("delete-event", self.cerrar)
         window.set_position(Gtk.PositionType.RIGHT)
         window.show_all()
-
-
-
+"""
+Desde esta clase iniciamos el programa y llamamos a la siguiente clase.
+"""
 Login()
 Gtk.main()
