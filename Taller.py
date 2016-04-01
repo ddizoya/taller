@@ -1,5 +1,6 @@
 import sqlite3 as dbapi
 from gi.repository import Gtk, Gdk
+import Generarpdf as pdf
 
 class Taller:
 
@@ -25,12 +26,12 @@ class Taller:
         self.ventana = self.builder.get_object("Taller")
 
         #Declaramos los nombres de los metodos para que al pulsar el boton tenga funcion
-        sinais = {"on_insertar_clicked": self.on_insertar_clicked,
-                      "on_consultar_clicked": self.on_consultar_clicked,
-                      "on_borrar_clicked": self.on_borrar_clicked,
-                      "on_Modificar_clicked": self.on_Modificar_clicked,
-                      "on_ayuda_clicked":self.on_ayuda_clicked,
-                      "delete-event": Gtk.main_quit}
+        sinais = {"on_insertar_clicked": self.insertar,
+                  "on_borrar_clicked": self.borrar,
+                  "on_modificar_clicked": self.modificar,
+                  "on_ayuda_clicked": self.informacion,
+                  "on_imprimir_clicked": self.imprimir,
+                  "delete-event": Gtk.main_quit}
         self.builder.connect_signals(sinais)
         self.ventana.set_title("Taller.")
         self.ventana.show_all()
@@ -63,15 +64,11 @@ class Taller:
             self.vista.append_column(columna)
 
     #Metodo de ayuda al usuario explicando como usar los botones y el programa
-    def on_ayuda_clicked(self, widget):
-        self.popup = ("merda pa ti mamon de merda")
-
-    # Metodo Consultar, imprime los datos de la base
-    def on_consultar_clicked(self, control):
-        self.actualizar()
+    def informacion(self, widget):
+        self.popup("merda pa ti mamon de merda")
 
     #Metodo borrar que borra seleccionando la fila en la tabla
-    def on_borrar_clicked(self, widget):
+    def borrar(self, widget):
         selection = self.vista.get_selection()
         model, selec = selection.get_selected()
         if selec != None:
@@ -82,7 +79,7 @@ class Taller:
             self.popup("Borrado")
 
      #Metodo Modificar. Modifica a traves de la primary Key
-    def on_Modificar_clicked(self, modificar):
+    def modificar(self, modificar):
         matricula = self.builder.get_object("matricula").get_text()
         vehiculo = self.builder.get_object("vehiculo").get_text()
         kilometros = self.builder.get_object("kilometros").get_text()
@@ -115,7 +112,7 @@ class Taller:
                 self.popup("La matricula ya existe")
 
     # Metodo insertar
-    def on_insertar_clicked(self, control):
+    def insertar(self, control):
         matricula = self.builder.get_object("matricula").get_text()
         vehiculo = self.builder.get_object("vehiculo").get_text()
         kilometros = self.builder.get_object("kilometros").get_text()
@@ -163,6 +160,11 @@ class Taller:
 
     def cerrar(self, widget):
         widget.destroy()
+
+    def imprimir(self,widget):
+       obj = pdf.PDF()
+       obj.pdf()
+
 
     #Este metodo abre una ventana emergente que muestra
     # el texto correspondiente a cada metodo
