@@ -88,8 +88,7 @@ class Taller:
         Da una pequeña orientacion al usuario explicando
         como usar los botones y el programa en si
         """
-        self.popup("Boton +:\nAñade un nuevo cliente a la base de datos\nBoton -:\nQuita un cliente de la base de datos\n(solo clica en el treeview la fila seleccionada)\nBoton Lapiz:\nEste boton permite modificar un cliente de la base, solo escribe la matricula y los campos que quieras cambiar\nBoton ?:\nSi no lo necesitaras no estarias aqui :D\nBoton Imprimir:\nGenera un pdf con la lista de clientes.")
-
+        self.popup("-->Boton +:\nAñade un nuevo cliente a la base de datos\n-->Boton -:\nQuita un cliente de la base de datos\n(solo clica en el treeview la fila seleccionada)\n-->Boton Lapiz:\nEste boton permite modificar un cliente de la base, solo escribe la matricula y los campos que quieras cambiar\n-->Boton ?:\nSi no lo necesitaras no estarias aqui :D\n-->Boton Imprimir:\nGenera un pdf con la lista de clientes.")
 
     def borrar(self, widget):
         """
