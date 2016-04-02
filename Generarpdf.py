@@ -86,7 +86,7 @@ class PDF():
         correspondiente que
         le pasa cada metodo
         """
-        window = Gtk.Window(title="Warning")
+        window = Gtk.Window(title="Oye!")
         label = Gtk.Label(texto)
         label.set_padding(15,15)
         window.add(label)

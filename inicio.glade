@@ -15,18 +15,59 @@
         <property name="margin_top">4</property>
         <property name="margin_bottom">8</property>
         <child>
+          <object class="GtkLabel" id="lnombre">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">start</property>
+            <property name="label" translatable="yes">Usuario</property>
+            <attributes>
+              <attribute name="foreground" value="#00000a3dffff"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkImage" id="logo">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="pixbuf">mecanico.png</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">0</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkButton" id="boton">
             <property name="label">gtk-apply</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="halign">start</property>
-            <property name="margin_right">50</property>
-            <property name="relief">half</property>
+            <property name="margin_right">87</property>
             <property name="use_stock">True</property>
-            <property name="xalign">0.49000000953674316</property>
+            <property name="xalign">0</property>
+            <property name="yalign">0.54000002145767212</property>
             <property name="always_show_image">True</property>
             <signal name="clicked" handler="on_Entrada_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="lcontraseña">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">start</property>
+            <property name="label" translatable="yes">Contraseña</property>
+            <attributes>
+              <attribute name="foreground" value="#00000a3dffff"/>
+            </attributes>
           </object>
           <packing>
             <property name="left_attach">0</property>
@@ -34,19 +75,15 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="lnombre">
+          <object class="GtkEntry" id="contrasena">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="halign">start</property>
-            <property name="label" translatable="yes">Nombre</property>
-            <attributes>
-              <attribute name="underline" value="True"/>
-              <attribute name="foreground" value="#cccc00000000"/>
-            </attributes>
+            <property name="can_focus">True</property>
+            <property name="visibility">False</property>
+            <property name="invisible_char">*</property>
           </object>
           <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">0</property>
+            <property name="left_attach">1</property>
+            <property name="top_attach">2</property>
           </packing>
         </child>
         <child>
@@ -59,52 +96,7 @@
           </object>
           <packing>
             <property name="left_attach">1</property>
-            <property name="top_attach">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkEntry" id="contrasena">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="visibility">False</property>
-            <property name="invisible_char">*</property>
-          </object>
-          <packing>
-            <property name="left_attach">1</property>
             <property name="top_attach">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="lcontraseña">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="halign">start</property>
-            <property name="label" translatable="yes">Contraseña</property>
-            <attributes>
-              <attribute name="underline" value="True"/>
-              <attribute name="foreground" value="#cccc00000000"/>
-            </attributes>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="login">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="halign">start</property>
-            <property name="label" translatable="yes">LOG IN</property>
-            <property name="ellipsize">end</property>
-            <attributes>
-              <attribute name="underline" value="True"/>
-              <attribute name="foreground" value="#cccc00000000"/>
-            </attributes>
-          </object>
-          <packing>
-            <property name="left_attach">1</property>
-            <property name="top_attach">2</property>
           </packing>
         </child>
       </object>

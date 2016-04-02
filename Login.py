@@ -17,14 +17,14 @@ class Login:
 
             self.nombre = builder2.get_object("nombre")
             self.contrasena = builder2.get_object("contrasena")
-            self.ventanaEntrada = builder2.get_object("inicio")
+            self.ventana1 = builder2.get_object("inicio")
 
             sinais = {"on_Entrada_clicked": self.inicio,
                       "delete-event": self.cerrar}
 
             builder2.connect_signals(sinais)
-            self.ventanaEntrada.set_title("Log in.")
-            self.ventanaEntrada.show_all()
+            self.ventana1.set_title("LOG IN")
+            self.ventana1.show_all()
 
     def inicio(self, widget):
         """
@@ -37,7 +37,7 @@ class Login:
         contrasena = self.contrasena.get_text();
         if nombre == "taller" and contrasena == "root":
             Taller()
-            self.ventanaEntrada.destroy()
+            self.ventana1.destroy()
 
         else:
             self.popup("Prueba otra vez")

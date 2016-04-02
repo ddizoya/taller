@@ -22,17 +22,20 @@ class Taller:
 
     def __init__(self):
         """
+        Declaramos atributo condicion para realizar las excepciones
+
         Conexion con la base de datos.
         Siempre se debe hacer un commit al terminar una consulta
 
         Declaramos los nombres de las señales,
         que reciben los botones de glade,
         para llamar al metodo correspondiente.
-        self.condicion= bool
+
 
         Abrimos y conectamos a la interfaz de taller.glade
 
         """
+        self.condicion= bool
         self.bd = dbapi.connect("basedatos.dat")
         self.cursor = self.bd.cursor()
 
@@ -76,7 +79,7 @@ class Taller:
 
         self.vista.set_model(self.lista)
 
-        for i, title in enumerate(["matricula","vehiculo","kilometro","fecha","cliente","cif", "telefono", "direccion"]):
+        for i, title in enumerate(["MATRICULA","VEHICULO","KILOMETROS","FECHA ENTREGA","CLIENTE","CIF/NIF", "TELEFONO", "DIRECCION"]):
             render = Gtk.CellRendererText()
             columna = Gtk.TreeViewColumn(title, render, text=i)
             self.vista.append_column(columna)
@@ -207,7 +210,7 @@ class Taller:
         Destruye la ventana emergente que nos 
         muestra el mensaje de informacion
         """
-        widget.destroy()
+        self.ventana.destroy()
 
     def imprimir(self,widget):
         """
